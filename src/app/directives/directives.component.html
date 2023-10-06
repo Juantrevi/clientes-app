@@ -1,0 +1,12 @@
+
+<button type="button" (click)="setShowCourses()" class="btn btn-primary my-3">{{(showCourses==true)? 'Hide': 'Show'}}</button>
+<div class="row row-cols-1 row-cols-md-1 g-4" *ngIf="showCourses == true">
+    <h2>List of courses</h2>
+    <div class="col" *ngFor="let course of courseList">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ course }}</h5>
+            </div>
+        </div>
+    </div>
+</div>
