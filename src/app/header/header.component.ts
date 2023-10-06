@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
     // styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-    // Add any properties or methods you need for your navbar component
+    title: string  = 'App Angular 16';
 }
