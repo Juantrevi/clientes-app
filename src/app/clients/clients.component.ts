@@ -1,19 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Client } from './client';
+import { CLIENTS } from './clientes.json';
 @Component({
   selector: 'app-clients',
   templateUrl: './clients.component.html'
 })
 
-export class ClientsComponent {
+export class ClientsComponent implements OnInit{
 
-  clients: Client[] = [
-    {id: 1, name: 'John', lastName: 'Doe', email: 'john@gmail.com', createAt: '2017-12-11'},
-    {id: 2, name: 'Jane', lastName: 'Doe', email: 'jane@gmail.com', createAt: '2017-12-11'},
-    {id: 3, name: 'Jack', lastName: 'Doe', email: 'jack@gmail.com', createAt: '2017-12-11'},
-    {id: 4, name: 'Jill', lastName: 'Doe', email: 'jill@gmail.com', createAt: '2017-12-11'},
-    {id: 5, name: 'Johnatan', lastName: 'Doe', email: 'johnatan@gmail.com', createAt: '2017-12-11'},
-  ];
+  clients: Client[];
 
+  constructor() { }
 
+  ngOnInit() {
+    this.clients = CLIENTS;
+  }
 }
