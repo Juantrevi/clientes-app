@@ -9,6 +9,7 @@ import { DirectivesComponent } from './directives/directives.component';
 import { ClientsComponent } from './clients/clients.component';
 import { ClientService } from './clients/client.service';
 import { RouterModule, Routes } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes = [
   {path: '', redirectTo: '/directives', pathMatch: 'full'},
@@ -29,7 +30,8 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     AppRoutingModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    HttpClientModule
   ],
 
   providers: [ClientService],
