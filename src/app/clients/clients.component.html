@@ -5,13 +5,14 @@
       <div class="my-2 text-left">
         <a class="btn btn-primary" [routerLink]="'/clients/form'">New client</a>
       </div>
-    <table class="table table-bordered table-striped ">
+    <table class="table table-bordered table-striped  ">
         <tr>
           <th>Id</th>
           <th>Name</th>
           <th>Last name</th>
           <th>Email</th>
           <th>Created at</th>
+          <th>Edit</th>
         </tr>
         <tr *ngFor="let client of clients">
           <td>{{client.id}}</td>
@@ -19,6 +20,9 @@
           <td>{{client.lastName}}</td>
           <td>{{client.email}}</td>
           <td>{{client.createdAt}}</td>
+          <td>
+            <a class="btn btn-primary" [routerLink]="'/clients/form/' + client.id">Edit</a>
+          </td>
         </tr>
       </table>
     </div>

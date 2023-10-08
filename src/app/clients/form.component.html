@@ -5,7 +5,7 @@
         <h3>{{ title }}</h3>
     </div>
     <div class="card-body ">
-        <form (ngSubmit)="createClient()">
+        <form>
             <div class="mb-3">
                 <label for="name" class="form-label">Name</label>
                 <input type="text" class="form-control" [(ngModel)]="client.name" name="name">
@@ -18,7 +18,14 @@
                 <label for="email" class="form-label">Email</label>
                 <input type="email" class="form-control" [(ngModel)]="client.email" name="email">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+
+            <!-- Button if it is to create, with the if -->
+            <button type="submit" class="btn btn-primary" (click)="createClient()" *ngIf="!client.id else elseBlock">Submit</button>
+            <!-- Button if it is to update -->
+            <ng-template #elseBlock>
+                <button type="submit" class="btn btn-primary" (click)="updateClient()">Update</button>
+            </ng-template>
+
         </form>
     </div>
 </div>
