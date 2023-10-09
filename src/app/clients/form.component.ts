@@ -50,5 +50,14 @@ export class FormComponent {
       });
   }
 
+  // //Method to delete a client //METHOD MAID IN clients.component.ts
+  // public deleteClient(): void {
+  //   this.clienteService.delete(this.client.id).subscribe(
+  //     response => {
+  //       this.router.navigate(['/clients']);
+  //       swal.fire('Client Deleted', `Client ${this.client.name} deleted successfully!`, 'success')
+  //     });
+  // }
+
 
 }

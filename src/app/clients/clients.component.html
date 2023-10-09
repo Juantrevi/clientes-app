@@ -5,7 +5,11 @@
       <div class="my-2 text-left">
         <a class="btn btn-primary" [routerLink]="'/clients/form'">New client</a>
       </div>
-    <table class="table table-bordered table-striped  ">
+      <div *ngIf="clients?.length==0" class="alert alert-info">
+        There are no clients
+      </div>
+
+    <table class="table table-bordered table-striped" *ngIf="clients?.length>0">
         <tr>
           <th>Id</th>
           <th>Name</th>
@@ -13,6 +17,7 @@
           <th>Email</th>
           <th>Created at</th>
           <th>Edit</th>
+          <th>Delete</th>
         </tr>
         <tr *ngFor="let client of clients">
           <td>{{client.id}}</td>
@@ -21,7 +26,10 @@
           <td>{{client.email}}</td>
           <td>{{client.createdAt}}</td>
           <td>
-            <a class="btn btn-primary" [routerLink]="'/clients/form/' + client.id">Edit</a>
+            <a class="btn btn-primary" name="edit" [routerLink]="'/clients/form/' + client.id">Edit</a>
+          </td>
+          <td>
+            <a class="btn btn-danger" name="delete" (click)="delete(client)">Delete</a>
           </td>
         </tr>
       </table>
