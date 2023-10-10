@@ -1,31 +1,93 @@
 <!-- FILEPATH: /c:/Users/juant/OneDrive/Escritorio/Udemy/Angular/clientes-app/src/app/clients/form.component.html -->
 
-<div class="card col-md-6 mx-auto">
-    <div class="card-header">
-        <h3>{{ title }}</h3>
-    </div>
-    <div class="card-body ">
-        <form>
-            <div class="mb-3">
-                <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control" [(ngModel)]="client.name" name="name">
-            </div>
-            <div class="mb-3">
-                <label for="lastName" class="form-label">Last Name</label>
-                <input type="text" class="form-control" [(ngModel)]="client.lastName" name="LastName">
-            </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" [(ngModel)]="client.email" name="email">
-            </div>
+    <div class="card col-md-6 mx-auto">
+        <div class="card-header">
+            <h3>{{ title }}</h3>
+        </div>
+        <div class="card-body ">
+            <!--VALIDATION WITH ANGULAR FROM THE CLIENT SIDE-->
+            <!--To see more validations, angular.io, validator and all that are in api can be used-->
+            <!--
+            <form #clientFormValidation="ngForm">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control" [(ngModel)]="client.name" name="name" required minlength="2" #name="ngModel">
+                    <div class="alert alert-danger" *ngIf="name.invalid && (name.dirty || name.touched)">
+                        <div *ngIf="name.errors.required">Name is required</div>
+                        <div *ngIf="name.errors.minlength">Name should contain at least 2 characters</div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="lastName" class="form-label">Last Name</label>
+                    <input type="text" class="form-control" [(ngModel)]="client.lastName" name="LastName" required minlength="2" #lastName="ngModel">
+                    <div class="alert alert-danger" *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)">
+                        <div *ngIf="lastName.errors.required">Last name is required</div>
+                        <div *ngIf="lastName.errors.minlength">Last name should contain at least 2 characters</div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" [(ngModel)]="client.email" name="email" required email #email="ngModel">
+                    <div class="alert alert-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
+                        <div *ngIf="email.errors.required">Email is required</div>
+                        <div *ngIf="email.errors.email">Invalid email</div>
+                    </div>
+                </div>
+            -->
+                <!-- Button if it is to create, with the if -->
+            <!--
+                <button type="submit" class="btn btn-primary" (click)="createClient()" *ngIf="!client.id else elseBlock" [disabled]="!clientFormValidation.form.valid">Submit</button>
+            -->
+                <!-- Button if it is to update -->
+            <!--    
+                <ng-template #elseBlock>
+                    <button type="submit" class="btn btn-primary" (click)="updateClient()" [disabled]="!clientFormValidation.form.valid">Update</button>
+                </ng-template>
+    
+            </form>
+            -->
 
-            <!-- Button if it is to create, with the if -->
-            <button type="submit" class="btn btn-primary" (click)="createClient()" *ngIf="!client.id else elseBlock">Submit</button>
-            <!-- Button if it is to update -->
-            <ng-template #elseBlock>
-                <button type="submit" class="btn btn-primary" (click)="updateClient()">Update</button>
-            </ng-template>
-
-        </form>
+        <!--VALIDATION WITH ANGULAR FROM THE SERVER SIDE (JAVA @Validation)-->
+        <ul class="alert alert-danger" *ngIf="errores?.length > 0">
+            <li *ngFor="let err of errores"> 
+                {{ err }}
+            </li>
+        </ul>
+            <form #clientFormValidation="ngForm">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control" [(ngModel)]="client.name" name="name" #name="ngModel">
+                    <div class="alert alert-danger" *ngIf="name.invalid && (name.dirty || name.touched)">
+                        <div *ngIf="name.errors.required">Name is required</div>
+                        <div *ngIf="name.errors.minlength">Name should contain at least 2 characters</div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="lastName" class="form-label">Last Name</label>
+                    <input type="text" class="form-control" [(ngModel)]="client.lastName" name="LastName"  #lastName="ngModel">
+                    <div class="alert alert-danger" *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)">
+                        <div *ngIf="lastName.errors.required">Last name is required</div>
+                        <div *ngIf="lastName.errors.minlength">Last name should contain at least 2 characters</div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" [(ngModel)]="client.email" name="email" #email="ngModel">
+                    <div class="alert alert-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
+                        <div *ngIf="email.errors.required">Email is required</div>
+                        <div *ngIf="email.errors.email">Invalid email</div>
+                    </div>
+                </div>
+            
+                <!-- Button if it is to create, with the if -->
+                <button type="submit" class="btn btn-primary" (click)="createClient()" *ngIf="!client.id else elseBlock" [disabled]="!clientFormValidation.form.valid">Submit</button>
+            
+                <!-- Button if it is to update -->    
+                <ng-template #elseBlock>
+                    <button type="submit" class="btn btn-primary" (click)="updateClient()" [disabled]="!clientFormValidation.form.valid">Update</button>
+                </ng-template>
+    
+            </form>
+        </div>
     </div>
-</div>
+

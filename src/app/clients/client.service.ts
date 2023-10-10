@@ -50,6 +50,10 @@ export class ClientService {
     return this.http.post<any>(this.urlEndPoint, client, { headers: this.httpHeaders }).pipe(
       catchError(e => {
         //This is the way to handle the error brought from the backend
+        if (e.status == 400) {
+          return throwError(() => e);
+        }
+
         swal.fire(e.error.message, e.error.error, 'error');
         return throwError(() => e.error.message);
       }
@@ -60,11 +64,17 @@ export class ClientService {
   //Here we are using the map method from rxjs to handle the error brought from the backend and to return the client as a Client object
   update(client: Client): Observable<Client> {
     return this.http.put<Client>(`${this.urlEndPoint}/${client.id}`, client, { headers: this.httpHeaders }).pipe(
-      //This is the way to handle the error brought from the backend
       map((response: any) => response.client as Client),
       catchError(e => {
-        swal.fire(e.error.message, e.error.error, 'error');
-        return throwError(() => e.error.message);
+      //This is the way to handle the error brought from the backend
+      console.log(e.error.errors + " Is the error oustide the if statement");
+
+        if (e.status == 400) {
+          return throwError(() => e);
+        }
+
+        swal.fire(e.error.message, e.error.errors, 'error');
+        return throwError(() => e.error.errors);
       }
       )
     );
