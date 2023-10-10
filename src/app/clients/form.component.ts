@@ -24,9 +24,9 @@ export class FormComponent {
   //Method to create a new client
   public createClient(): void {
     this.clienteService.create(this.client).subscribe(
-      client => { 
+      json => { 
       this.router.navigate(['/clients'])
-      swal.fire('New Client', `Client ${client.name} created successfully!`, 'success')
+      swal.fire('New Client', `${json.message}: ${json.client.name}`, 'success')
       });
   }
 
@@ -46,7 +46,7 @@ export class FormComponent {
     this.clienteService.update(this.client).subscribe(
       client => { 
       this.router.navigate(['/clients']);
-      swal.fire('Client Updated', `Client ${client.name} updated successfully!`, 'success')
+      swal.fire('Client Updated', `The client: ${client.name}: was updated succesfully`, 'success')
       });
   }
 
