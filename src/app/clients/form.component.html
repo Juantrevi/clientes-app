@@ -48,8 +48,8 @@
             -->
 
         <!--VALIDATION WITH ANGULAR FROM THE SERVER SIDE (JAVA @Validation)-->
-        <ul class="alert alert-danger" *ngIf="errores?.length > 0">
-            <li *ngFor="let err of errores"> 
+        <ul class="alert alert-danger px-5" *ngIf="errores?.length > 0">
+            <li class="px-2" *ngFor="let err of errores"> 
                 {{ err }}
             </li>
         </ul>
