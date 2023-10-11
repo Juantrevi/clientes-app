@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CLIENTS } from './clientes.json';
+// import { CLIENTS } from './clientes.json';
 import { Client } from './client';
 import { Observable, of, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -8,6 +8,7 @@ import { map, catchError } from 'rxjs/operators';
 import swal from 'sweetalert2';
 //To be able to redirect to another page after catching an error or after creating a new client etc...
 import { Router } from '@angular/router';
+import { formatDate, DatePipe } from '@angular/common';
 
 //HERE IS WHERE WE HAVE THE BUSINESS LOGIC, BROUGH FROM THE BACKEND TO THE FRONTEND USING THE HTTPCLIENT
 
@@ -22,15 +23,46 @@ export class ClientService {
   constructor(private http: HttpClient, private router: Router) { }
 
 
-  //Implementing the logic to consum the service from the backend using the HttpClient
+  //Implementing the logic to consume the service from the backend using the HttpClient
   getClients(): Observable<Client[]> {
 
+    /*OTHER WAYS OF DOING IT*
     //This is one way of doing it
-    return this.http.get<Client[]>(this.urlEndPoint);
+    //return this.http.get<Client[]>(this.urlEndPoint);
 
     //This is another way of doing it using the map method from rxjs
     // return this.http.get(this.urlEndPoint).pipe(map(response => response as Client[]));
-  }
+    */
+
+    /*SHOWING NAMES IN UPPERCASE AND FORMATTING THE DATES*
+    //This is another way of doing it when we want to change something in the flow, like for example putting things in upperor lower case
+     */
+    return this.http.get(this.urlEndPoint).pipe(
+      map(response => {
+        let clients = response as Client[];
+
+        return clients.map(client => {
+          client.name = client.name.toUpperCase();
+          /*One way of changing the format* 
+          //client.createdAt = formatDate(client.createdAt, 'dd-MM-yyyy', 'en-US');
+          */
+          
+          /*Another way of changing the format*
+          let datePipe = new DatePipe('en-US');
+          client.createdAt = datePipe.transform(client.createdAt, 'dd/MM/yyyy');
+          */
+          
+          /*Another way of changing the format to say the day and month**/
+          let datePipe = new DatePipe('en-US');
+          client.createdAt = datePipe.transform(client.createdAt, 'EEE dd, MMM yyyy');
+          
+          return client;
+          }
+        );
+      }
+    )
+  );
+}
 
   getClient(id): Observable<Client> {
 
@@ -66,8 +98,8 @@ export class ClientService {
     return this.http.put<Client>(`${this.urlEndPoint}/${client.id}`, client, { headers: this.httpHeaders }).pipe(
       map((response: any) => response.client as Client),
       catchError(e => {
-      //This is the way to handle the error brought from the backend
-      console.log(e.error.errors + " Is the error oustide the if statement");
+        //This is the way to handle the error brought from the backend
+        console.log(e.error.errors + " Is the error oustide the if statement");
 
         if (e.status == 400) {
           return throwError(() => e);

@@ -3,5 +3,5 @@ export class Client {
   name: string;
   lastName: string;
   email: string;
-  createAt: string;
+  createdAt: string;
 }
