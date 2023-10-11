@@ -42,7 +42,7 @@ export class ClientService {
       map(response => {
         let clients = response as Client[];
 
-        return clients.map(client => {
+          return clients.map(client => {
           client.name = client.name.toUpperCase();
 
           /*One way of changing the format* 
