@@ -12,7 +12,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { FormComponent } from './clients/form.component';
 import { FormsModule } from '@angular/forms';
-
+import { LOCALE_ID } from '@angular/core';
 const routes: Routes = [
   {path: '', redirectTo: '/directives', pathMatch: 'full'},
   {path: 'directives', component: DirectivesComponent},
@@ -41,7 +41,7 @@ const routes: Routes = [
     FormsModule
   ],
 
-  providers: [ClientService],
+  providers: [ClientService, {provide: LOCALE_ID, useValue: 'en-US'}],
   
   bootstrap: [AppComponent]
 })

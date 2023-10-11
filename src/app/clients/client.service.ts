@@ -10,6 +10,7 @@ import swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { formatDate, DatePipe } from '@angular/common';
 
+
 //HERE IS WHERE WE HAVE THE BUSINESS LOGIC, BROUGH FROM THE BACKEND TO THE FRONTEND USING THE HTTPCLIENT
 
 @Injectable({
@@ -43,6 +44,7 @@ export class ClientService {
 
         return clients.map(client => {
           client.name = client.name.toUpperCase();
+
           /*One way of changing the format* 
           //client.createdAt = formatDate(client.createdAt, 'dd-MM-yyyy', 'en-US');
           */
@@ -52,9 +54,12 @@ export class ClientService {
           client.createdAt = datePipe.transform(client.createdAt, 'dd/MM/yyyy');
           */
           
-          /*Another way of changing the format to say the day and month**/
+          /*Another way of changing the format to say the day and month*
           let datePipe = new DatePipe('en-US');
           client.createdAt = datePipe.transform(client.createdAt, 'EEE dd, MMM yyyy');
+          */
+
+          /**ANOTHER WAY OF FORMATING BUT IN THE HTML */
           
           return client;
           }
