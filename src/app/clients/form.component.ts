@@ -30,7 +30,7 @@ export class FormComponent {
       //Method subscribe, when everything went OK
       .pipe(tap((client) => {
         this.router.navigate(['/clients']);
-        swal.fire('Client Updated', `The client ${client.name}: was created successfully`, 'success');
+        swal.fire('Client Created', `The client ${client.name}: was created successfully`, 'success');
       }),
       //Method subscribe, when something went wrong
       catchError((err) => {
@@ -56,7 +56,7 @@ export class FormComponent {
 
   //Method to update a client
   public updateClient(): void {
-    console.log("It is entering");
+    
     this.clienteService.update(this.client)
       //Method subscribe, when everything went OK
       .pipe(tap((client) => {

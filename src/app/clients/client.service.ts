@@ -69,7 +69,7 @@ export class ClientService {
   );
 }
 
-getClientsPage(page: number): Observable<any> {
+  getClientsPage(page: number): Observable<any> {
 
    
   return this.http.get(this.urlEndPoint + '/page/' + page).pipe(
@@ -96,8 +96,9 @@ getClientsPage(page: number): Observable<any> {
 
   //Two ways of doing it, one is this one, the other one is using the map method from rxjs as shown in the update. Remember to change it in the form.component.ts too.
   //Here we returning an observable of any type (Not Client type) because we are not returning a client object, we are returning a json object
-  create(client: Client): Observable<any> {
-    return this.http.post<any>(this.urlEndPoint, client, { headers: this.httpHeaders }).pipe(
+  create(client: Client): Observable<Client> {
+    return this.http.post<Client>(this.urlEndPoint, client, { headers: this.httpHeaders }).pipe(
+      map((response: any) => response.client as Client),
       catchError(e => {
         //This is the way to handle the error brought from the backend
         if (e.status == 400) {
@@ -117,7 +118,6 @@ getClientsPage(page: number): Observable<any> {
       map((response: any) => response.client as Client),
       catchError(e => {
         //This is the way to handle the error brought from the backend
-        console.log(e.error.errors + " Is the error oustide the if statement");
 
         if (e.status == 400) {
           return throwError(() => e);

@@ -14,6 +14,10 @@ import { FormComponent } from './clients/form.component';
 import { FormsModule } from '@angular/forms';
 import { LOCALE_ID } from '@angular/core';
 import { PaginatorComponent } from './paginator/paginator.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+
 
 
 const routes: Routes = [
@@ -42,7 +46,11 @@ const routes: Routes = [
     AppRoutingModule,
     RouterModule.forRoot(routes),
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    
   ],
 
   providers: [ClientService, {provide: LOCALE_ID, useValue: 'en-US'}],
