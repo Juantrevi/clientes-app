@@ -16,7 +16,7 @@ import { LOCALE_ID } from '@angular/core';
 import { PaginatorComponent } from './paginator/paginator.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
 
 
@@ -49,7 +49,7 @@ const routes: Routes = [
     FormsModule,
     BrowserAnimationsModule,
     MatDatepickerModule,
-    MatNativeDateModule,
+    MatMomentDateModule,
     
   ],
 
