@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Client } from './client';
 import { ClientService } from './client.service';
-import swal from 'sweetalert2' ;
+import swal from 'sweetalert2';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -9,15 +10,30 @@ import swal from 'sweetalert2' ;
   templateUrl: './clients.component.html'
 })
 
-export class ClientsComponent implements OnInit{
+export class ClientsComponent implements OnInit {
 
   clients: Client[];
 
-  constructor(private clientService: ClientService) { }
+  constructor(private clientService: ClientService,
+    private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-     this.clientService.getClients().subscribe(
-       clients => this.clients = clients);
+
+    this.activatedRoute.paramMap.subscribe(params => {
+      let page: number = +params.get('page');
+
+      if (!page) {
+        page = 0;
+      }
+
+      this.clientService.getClientsPage(page).subscribe(
+        clients => this.clients = clients);
+    })
+
+
+
+    //  this.clientService.getClients().subscribe(
+    //    clients => this.clients = clients);
   }
 
   delete(client: Client): void {

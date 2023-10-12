@@ -69,6 +69,24 @@ export class ClientService {
   );
 }
 
+getClientsPage(page: number): Observable<any> {
+
+   
+  return this.http.get(this.urlEndPoint + '/page/' + page).pipe(
+    map((response: any) => {
+      let clients = response.content as Client[];
+
+        return clients.map(client => {
+        client.name = client.name.toUpperCase();
+        
+        return client;
+          }
+        );
+      }
+    )
+  );
+}
+
   getClient(id): Observable<Client> {
 
     return this.http.get<Client>(`${this.urlEndPoint}/${id}`).pipe(
