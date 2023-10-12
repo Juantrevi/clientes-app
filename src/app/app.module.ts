@@ -13,6 +13,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormComponent } from './clients/form.component';
 import { FormsModule } from '@angular/forms';
 import { LOCALE_ID } from '@angular/core';
+import { PaginatorComponent } from './paginator/paginator.component';
+
+
 const routes: Routes = [
   {path: '', redirectTo: '/directives', pathMatch: 'full'},
   {path: 'directives', component: DirectivesComponent},
@@ -30,7 +33,8 @@ const routes: Routes = [
     FooterComponent,
     DirectivesComponent,
     ClientsComponent,
-    FormComponent
+    FormComponent,
+    PaginatorComponent
   ],
 
 
