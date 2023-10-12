@@ -1,1 +1,5 @@
-<p>paginator works!</p>
+<ul class="pagination" *ngIf="pages?.length > 0">
+    <li *ngFor="let numberOfPages of pages">
+        <a [routerLink]="['/clients/page/', numberOfPages-1]">{{numberOfPages}}</a>
+    </li>
+</ul>

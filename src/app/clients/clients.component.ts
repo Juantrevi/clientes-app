@@ -13,7 +13,7 @@ import { ActivatedRoute } from '@angular/router';
 export class ClientsComponent implements OnInit {
 
   clients: Client[];
-
+  paginatorFather: any;
   constructor(private clientService: ClientService,
     private activatedRoute: ActivatedRoute) { }
 
@@ -27,13 +27,12 @@ export class ClientsComponent implements OnInit {
       }
 
       this.clientService.getClientsPage(page).subscribe(
-        clients => this.clients = clients);
-    })
+        response => {
+          this.clients = response.content as Client[];
+          this.paginatorFather = response;
 
-
-
-    //  this.clientService.getClients().subscribe(
-    //    clients => this.clients = clients);
+        });
+    });
   }
 
   delete(client: Client): void {

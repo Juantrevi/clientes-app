@@ -74,17 +74,12 @@ getClientsPage(page: number): Observable<any> {
    
   return this.http.get(this.urlEndPoint + '/page/' + page).pipe(
     map((response: any) => {
-      let clients = response.content as Client[];
-
-        return clients.map(client => {
+      (response.content as Client[]).map(client => {
         client.name = client.name.toUpperCase();
-        
         return client;
-          }
-        );
-      }
-    )
-  );
+      });
+      return response;
+      }));
 }
 
   getClient(id): Observable<Client> {
