@@ -28,17 +28,22 @@ export class PaginatorComponent implements OnInit, OnChanges{
 
     
     public initPaginator(): void {
-      this.from = Math.min(Math.max(1, this.paginatorChild.number - 4), this.paginatorChild.totalPages - 5);
-      this.to = Math.max(Math.min(this.paginatorChild.totalPages, this.paginatorChild.number + 4), 6);
+      const currentPage = this.paginatorChild.number;
+      const totalPages = this.paginatorChild.totalPages;
 
-      if (this.paginatorChild.totalPages > 5) {
-        this.pages = new Array(this.to - this.from + 1).fill(0).map((_value, index) => index + this.from);
+      this.from = Math.max(1, currentPage - 2);
+      this.to = Math.min(totalPages, currentPage + 2);
 
+      if (totalPages > 5) {
+        if (currentPage <= 3) {
+          this.to = 5;
+        } else if (currentPage >= totalPages - 2) {
+          this.from = totalPages - 4;
+        }
 
+        this.pages = new Array(5).fill(0).map((_value, index) => index + this.from);
       } else {
-
-        this.pages = new Array(this.paginatorChild.totalPages).fill(0).map((_value, index) => index + 1);
-
+        this.pages = new Array(totalPages).fill(0).map((_value, index) => index + 1);
       }
     }
 }
