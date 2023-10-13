@@ -143,7 +143,7 @@ export class ClientService {
 
   uploadPhoto(photo: File, id): Observable<Client> {
     let formData = new FormData();
-    formData.append("photo", photo);
+    formData.append("file", photo);
     formData.append("id", id);
 
     return this.http.post(`${this.urlEndPoint}/upload`, formData).pipe(
