@@ -1,3 +1,6 @@
+
+<client-detail *ngIf="selectedClient" [client]="selectedClient"></client-detail>
+
 <div class="card border-primary mb-4 d-inline-block w-100">
     <div class="card-header">Clients</div>
     <div class="card-body text-primary">
@@ -21,7 +24,7 @@
           <th>Delete</th>
         </tr>
         <tr *ngFor="let client of clients">
-          <td><button type="button" class="btn btn-success " [routerLink]="'/clients/upload/' + client.id">{{client.id}}</button></td>
+          <td><button type="button" class="btn btn-success" (click)="openModal(client)" >{{client.id}}</button></td>
           <td>{{client.name}}</td>
           <td>{{client.lastName | uppercase}}</td> <!--uppercase pipe-->
           <td>{{client.email}}</td>

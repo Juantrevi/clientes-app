@@ -1,34 +1,50 @@
-<div class="card col-md-6 mx-auto">
-    <div class="d-flex align-items-center justify-content-center">
-        <h3 class="mb-0">{{ title }}</h3>
-    </div>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-sm">
-                <ul *ngIf="client" class="list-group text-dark mb-3">
-                    <li class="list-group-item active">{{client.name}}</li>
-                    <li class="list-group-item">{{client.lastName}}</li>
-                    <li class="list-group-item">{{client.email}}</li>
-                    <li class="list-group-item">{{client.createdAt | date:"fullDate"}}"</li>
-                </ul>
-                <div class="card-body">
-                    <div class="input-group">
-                        <input (change)="selectPhoto($event)" type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
-                        <button (click)="uploadPhoto()" [disabled]="!photoSelected" class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Upload</button>
+<div *ngIf="modalService.modal" class="modal" tabindex="-1" style="display: block;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{title}}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="closeModal()" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm">
+                        <ul *ngIf="client" class="list-group text-dark mb-3">
+                            <li class="list-group-item active">{{client.name}}</li>
+                            <li class="list-group-item">{{client.lastName}}</li>
+                            <li class="list-group-item">{{client.email}}</li>
+                            <li class="list-group-item">{{client.createdAt | date:"fullDate"}}"</li>
+                        </ul>
+                        <div class="card-body">
+                            <div class="input-group">
+                                <input (change)="selectPhoto($event)" type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+                                <button (click)="uploadPhoto()" [disabled]="!photoSelected" class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Upload</button>
+                            </div>
+                        </div>
+        
+                        <div *ngIf="progress>0" class="progress" role="progressbar" aria-label="Success example" attr.aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar bg-success" [ngStyle]="{width:progress+'%'}">{{progress}}%</div>
+                          </div>
+        
+                    </div>
+                    </div>
+                    <div class="col-sm">
+                        <img *ngIf="client?.photo" src="http://localhost:8080/api/uploads/img/{{client.photo}}" alt="{{client.photo}}" class="img-thumbnail rounded">
                     </div>
                 </div>
-
-                <div *ngIf="progress>0" class="progress" role="progressbar" aria-label="Success example" attr.aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100">
-                    <div class="progress-bar bg-success" [ngStyle]="{width:progress+'%'}">{{progress}}%</div>
-                  </div>
-
             </div>
-            </div>
-            <div class="col-sm">
-                <img *ngIf="client?.photo" src="http://localhost:8080/api/uploads/img/{{client.photo}}" alt="{{client.photo}}" class="img-thumbnail rounded">
-            </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeModal()" data-bs-dismiss="modal">Close</button>
         </div>
+      </div>
     </div>
+  </div>
+
+
+
+
+
+
 
 

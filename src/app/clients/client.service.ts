@@ -21,7 +21,8 @@ export class ClientService {
   private urlEndPoint: string = 'http://localhost:8080/api/clients';
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' })
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient,
+              private router: Router) { }
 
 
   //Implementing the logic to consume the service from the backend using the HttpClient

@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Client } from '../client';
 import { ClientService } from '../client.service';
 import { ActivatedRoute } from '@angular/router';
 import swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { HttpEventType } from '@angular/common/http';
+import { ModalService } from './modal.service';
 
 @Component({
   selector: 'client-detail',
@@ -13,22 +14,18 @@ import { HttpEventType } from '@angular/common/http';
 })
 export class DetailComponent {
 
-  client: Client;
+  @Input() client: Client;
   public title: string = "Client detail";
   public photoSelected: File;
   public progress: number = 0;
 
-  constructor(private clientService: ClientService, 
-              private activatedRoute: ActivatedRoute,
-              private router: Router) { }
+  constructor(public clientService: ClientService, 
+              public activatedRoute: ActivatedRoute,
+              public router: Router,
+              public modalService: ModalService) { }
 
   ngOnInit() {
-    this.activatedRoute.paramMap.subscribe(params => {
-      let id: number = +params.get('id');
-      if (id) {
-        this.clientService.getClient(id).subscribe(client => this.client = client);
-      }
-    });
+
   }
 
   selectPhoto(event){
@@ -64,6 +61,12 @@ export class DetailComponent {
     }
 
 
+  }
+
+  closeModal(){
+    this.modalService.closeModal();
+    this.photoSelected = null;
+    this.progress = 0;
   }
 
 }
