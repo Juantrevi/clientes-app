@@ -35,13 +35,20 @@ export class DetailComponent {
   }
 
   uploadPhoto(){
-    this.clientService.uploadPhoto(this.photoSelected, this.client.id).subscribe(
-      client => {
-        this.client = client;
-        swal.fire('Photo uploaded', `The photo has been uploaded successfully: ${this.client.photo}`, 'success');
-        this.router.navigate(['/clients']);
-      }
-    );
+
+    if(!this.photoSelected){
+      swal.fire('Error uploading photo', 'You must select a photo', 'error');
+    }else{
+      this.clientService.uploadPhoto(this.photoSelected, this.client.id).subscribe(
+        client => {
+          this.client = client;
+          swal.fire('Photo uploaded', `The photo has been uploaded successfully: ${this.client.photo}`, 'success');
+          this.router.navigate(['/clients']);
+        }
+      );
+    }
+
+
   }
 
 }
