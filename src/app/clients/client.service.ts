@@ -140,4 +140,21 @@ export class ClientService {
       )
     );
   }
+
+  uploadPhoto(photo: File, id): Observable<Client> {
+    let formData = new FormData();
+    formData.append("photo", photo);
+    formData.append("id", id);
+
+    return this.http.post(`${this.urlEndPoint}/upload`, formData).pipe(
+      map((response: any) => response.client as Client),
+      catchError(e => {
+        //This is the way to handle the error brought from the backend
+        swal.fire(e.error.message, e.error.error, 'error');
+        return throwError(() => e.error.message);
+      }
+      )
+    );
+  }
+
 }

@@ -17,6 +17,7 @@ import { PaginatorComponent } from './paginator/paginator.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { DetailComponent } from './clients/detail/detail.component';
 
 
 
@@ -27,6 +28,7 @@ const routes: Routes = [
   {path: 'clients/form', component: FormComponent},
   {path: 'clients/form/:id', component: FormComponent},
   {path: 'clients/page/:page', component: ClientsComponent},  
+  {path: 'clients/upload/:id', component: DetailComponent},
 ];
 
 @NgModule({
@@ -37,7 +39,8 @@ const routes: Routes = [
     DirectivesComponent,
     ClientsComponent,
     FormComponent,
-    PaginatorComponent
+    PaginatorComponent,
+    DetailComponent
   ],
 
 

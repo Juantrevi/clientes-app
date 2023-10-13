@@ -10,6 +10,7 @@
       </div>
 
     <table class="table table-bordered table-striped" *ngIf="clients?.length>0">
+      <tbody class="table-striped">
         <tr>
           <th>Id</th>
           <th>Name</th>
@@ -20,7 +21,7 @@
           <th>Delete</th>
         </tr>
         <tr *ngFor="let client of clients">
-          <td>{{client.id}}</td>
+          <td><button type="button" class="btn btn-success " [routerLink]="'/clients/upload/' + client.id">{{client.id}}</button></td>
           <td>{{client.name}}</td>
           <td>{{client.lastName | uppercase}}</td> <!--uppercase pipe-->
           <td>{{client.email}}</td>
@@ -32,6 +33,7 @@
             <a class="btn btn-danger" name="delete" (click)="delete(client)">Delete</a>
           </td>
         </tr>
+      </tbody>
       </table>
       <paginator-nav *ngIf="paginatorFather" [paginatorChild] = "paginatorFather" ></paginator-nav>
     </div>
