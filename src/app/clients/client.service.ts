@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 // import { CLIENTS } from './clientes.json';
 import { Client } from './client';
 import { Observable, of, throwError } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpHeaders, HttpRequest } from '@angular/common/http';
 //Catching errors is in charge of the catchError operator intercepting it from the backend using the method pipe
 import { map, catchError } from 'rxjs/operators';
 import swal from 'sweetalert2';
@@ -141,20 +141,17 @@ export class ClientService {
     );
   }
 
-  uploadPhoto(photo: File, id): Observable<Client> {
+  //Method to upload a photo showing the progress bar
+  uploadPhoto(photo: File, id): Observable<HttpEvent<{}>> {
     let formData = new FormData();
     formData.append("file", photo);
     formData.append("id", id);
 
-    return this.http.post(`${this.urlEndPoint}/upload`, formData).pipe(
-      map((response: any) => response.client as Client),
-      catchError(e => {
-        //This is the way to handle the error brought from the backend
-        swal.fire(e.error.message, e.error.error, 'error');
-        return throwError(() => e.error.message);
-      }
-      )
-    );
+    const req = new HttpRequest('POST', `${this.urlEndPoint}/upload`, formData, {
+      reportProgress: true
+    });
+
+    return this.http.request(req);
   }
 
 }

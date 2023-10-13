@@ -4,6 +4,7 @@ import { ClientService } from '../client.service';
 import { ActivatedRoute } from '@angular/router';
 import swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'client-detail',
@@ -14,7 +15,8 @@ export class DetailComponent {
 
   client: Client;
   public title: string = "Client detail";
-  private photoSelected: File;
+  public photoSelected: File;
+  public progress: number = 0;
 
   constructor(private clientService: ClientService, 
               private activatedRoute: ActivatedRoute,
@@ -31,7 +33,12 @@ export class DetailComponent {
 
   selectPhoto(event){
     this.photoSelected = event.target.files[0];
-    console.log(this.photoSelected);
+    this.progress = 0;
+    if(this.photoSelected.type.indexOf('image') < 0){
+      swal.fire('Error uploading photo', 'The file must be an image', 'error');
+      this.photoSelected = null;
+    }
+
   }
 
   uploadPhoto(){
@@ -40,10 +47,18 @@ export class DetailComponent {
       swal.fire('Error uploading photo', 'You must select a photo', 'error');
     }else{
       this.clientService.uploadPhoto(this.photoSelected, this.client.id).subscribe(
-        client => {
-          this.client = client;
-          swal.fire('Photo uploaded', `The photo has been uploaded successfully: ${this.client.photo}`, 'success');
-          this.router.navigate(['/clients']);
+        event => {
+          //this.client = client;
+          //Show the progress bar
+          if(event.type === HttpEventType.UploadProgress){
+            this.progress = Math.round((event.loaded/event.total)*100);
+          }else if(event.type === HttpEventType.Response){
+            let response: any = event.body;
+            this.client = response.client as Client;
+            swal.fire('Photo uploaded', `The photo has been uploaded successfully: ${this.client.photo}`, 'success');
+            // this.router.navigate(['/clients']);
+            this.photoSelected = null;
+          }
         }
       );
     }
