@@ -3,6 +3,7 @@ import { Client } from '../client';
 import { ClientService } from '../client.service';
 import { ActivatedRoute } from '@angular/router';
 import swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'client-detail',
@@ -16,7 +17,8 @@ export class DetailComponent {
   private photoSelected: File;
 
   constructor(private clientService: ClientService, 
-              private activatedRoute: ActivatedRoute) { }
+              private activatedRoute: ActivatedRoute,
+              private router: Router) { }
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(params => {
@@ -37,7 +39,9 @@ export class DetailComponent {
       client => {
         this.client = client;
         swal.fire('Photo uploaded', `The photo has been uploaded successfully: ${this.client.photo}`, 'success');
+        this.router.navigate(['/clients']);
       }
     );
   }
+
 }
