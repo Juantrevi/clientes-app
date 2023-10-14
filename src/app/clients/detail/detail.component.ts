@@ -52,8 +52,8 @@ export class DetailComponent {
           }else if(event.type === HttpEventType.Response){
             let response: any = event.body;
             this.client = response.client as Client;
+            this.modalService.notificationUpload.emit(this.client);
             swal.fire('Photo uploaded', `The photo has been uploaded successfully: ${this.client.photo}`, 'success');
-            // this.router.navigate(['/clients']);
             this.photoSelected = null;
           }
         }

@@ -15,7 +15,7 @@
     <table class="table table-bordered table-striped" *ngIf="clients?.length>0">
       <tbody class="table-striped">
         <tr>
-          <th>Id</th>
+          <th>#</th>
           <th>Name</th>
           <th>Last name</th>
           <th>Email</th>
@@ -24,7 +24,9 @@
           <th>Delete</th>
         </tr>
         <tr *ngFor="let client of clients">
-          <td><button type="button" class="btn btn-success" (click)="openModal(client)" >{{client.id}}</button></td>
+          <td><img (click)="openModal(client)" *ngIf="client?.photo" src="http://localhost:8080/api/uploads/img/{{client.photo}}" alt="{{client.photo}}" class="img-thumbnail rounded" style="width: 64px; cursor:pointer;">
+          <img (click)="openModal(client)" *ngIf="!client?.photo" src="http://localhost:8080/images/no_user.png" alt="no photo" class="img-thumbnail rounded" style="width: 64px; cursor:pointer;">
+        </td>
           <td>{{client.name}}</td>
           <td>{{client.lastName | uppercase}}</td> <!--uppercase pipe-->
           <td>{{client.email}}</td>

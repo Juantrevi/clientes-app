@@ -38,6 +38,16 @@ export class ClientsComponent implements OnInit {
 
         });
     });
+
+    this.modalService.notificationUpload.subscribe(client => {
+      this.clients = this.clients.map(clientOriginal => {
+        if (client.id == clientOriginal.id) {
+          clientOriginal.photo = client.photo;
+        }
+        return clientOriginal;
+      })
+    })
+
   }
 
   delete(client: Client): void {
