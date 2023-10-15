@@ -92,6 +92,14 @@
                         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
                 </div>
+
+                <!--Input for the client region-->
+                <div class="mb-3">
+                    <label for="region" class="form-label">Region</label>
+                    <select class="form-control" [(ngModel)]="client.region" name="region">
+                        <option *ngFor="let region of regions" [value]="region.id">{{region.name}}</option>
+                    </select>
+                </div>
             
                 <!-- Button if it is to create, with the if -->
                 <button type="submit" class="btn btn-primary" (click)="createClient()" *ngIf="!client.id else elseBlock" [disabled]="!clientFormValidation.form.valid">Submit</button>

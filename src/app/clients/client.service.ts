@@ -9,6 +9,7 @@ import swal from 'sweetalert2';
 //To be able to redirect to another page after catching an error or after creating a new client etc...
 import { Router } from '@angular/router';
 import { formatDate, DatePipe } from '@angular/common';
+import { Region } from './detail/region';
 
 
 //HERE IS WHERE WE HAVE THE BUSINESS LOGIC, BROUGH FROM THE BACKEND TO THE FRONTEND USING THE HTTPCLIENT
@@ -153,6 +154,11 @@ export class ClientService {
     });
 
     return this.http.request(req);
+  }
+
+  //Method to get the regions
+  getRegions(): Observable<Region[]> {
+    return this.http.get<Region[]>(this.urlEndPoint + '/regions');
   }
 
 }

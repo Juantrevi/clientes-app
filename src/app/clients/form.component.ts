@@ -4,6 +4,7 @@ import { ClientService } from './client.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import swal from 'sweetalert2';
 import { tap, catchError } from 'rxjs/operators';
+import { Region } from './detail/region';
 
 
 @Component({
@@ -15,6 +16,8 @@ export class FormComponent {
   public client: Client = new Client();
   public title: string = 'Create Client';
   public errores: string[];
+  public regions: Region[];
+  
 
   public constructor(private clienteService: ClientService,
     private router: Router,
@@ -51,6 +54,7 @@ export class FormComponent {
         this.clienteService.getClient(id).subscribe((client) => this.client = client)
       }
     });
+    this.clienteService.getRegions().subscribe(regions => this.regions = regions);
   }
 
 
